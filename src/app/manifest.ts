@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "DataLug",
-    short_name: "DataLug",
+    name: "Couple Review",
+    short_name: "Couple Review",
     description: "O diário de filmes, séries e animes de Lucas e Giovanna.",
     lang: "pt-BR",
     start_url: "/",

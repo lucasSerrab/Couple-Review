@@ -7,7 +7,7 @@ export default function OfflinePage() {
     <main className="mx-auto flex min-h-dvh max-w-[420px] flex-col items-start justify-center gap-3 px-7">
       <h1 className="font-display text-[34px] font-extrabold leading-none tracking-[-0.02em]">Sem conexão</h1>
       <p className="text-[15px] leading-relaxed text-body">
-        O DataLug precisa da internet para buscar e salvar. Assim que o sinal voltar, é só tentar de novo.
+        O Couple Review precisa da internet para buscar e salvar. Assim que o sinal voltar, é só tentar de novo.
       </p>
       {/* <a> de propósito: recarrega a página inteira para tentar a rede de novo. */}
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}

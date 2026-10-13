@@ -18,10 +18,10 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: { default: "DataLug", template: "%s · DataLug" },
+  title: { default: "Couple Review", template: "%s · Couple Review" },
   description: "O diário de filmes, séries e animes de Lucas e Giovanna.",
-  applicationName: "DataLug",
-  appleWebApp: { capable: true, title: "DataLug", statusBarStyle: "black-translucent" },
+  applicationName: "Couple Review",
+  appleWebApp: { capable: true, title: "Couple Review", statusBarStyle: "black-translucent" },
   formatDetection: { telephone: false },
   icons: { icon: [{ url: "/pwa-icon/192", sizes: "192x192", type: "image/png" }], apple: [{ url: "/pwa-icon/180", sizes: "180x180", type: "image/png" }] },
   robots: { index: false, follow: false },

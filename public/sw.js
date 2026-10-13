@@ -1,8 +1,8 @@
-// Service worker do DataLug: só o essencial para funcionar com conexão fraca.
+// Service worker do Couple Review: só o essencial para funcionar com conexão fraca.
 // - Arquivos estáticos do app (JS, CSS, fontes) e ícones: cache primeiro (são versionados pelo Next).
 // - Navegação: rede primeiro, com a página "Sem conexão" quando não há rede.
 // - API, áudio e dados do Supabase: nunca vão para o cache.
-const VERSAO = "datalug-v1";
+const VERSAO = "couple-review-v2";
 const OFFLINE_URL = "/offline";
 
 self.addEventListener("install", (event) => {
@@ -31,7 +31,7 @@ self.addEventListener("fetch", (event) => {
   const mesmaOrigem = url.origin === self.location.origin;
   if (mesmaOrigem && url.pathname.startsWith("/api")) return;
 
-  const estatico = mesmaOrigem && (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/pwa-icon/"));
+  const estatico = mesmaOrigem && (url.pathname.startsWith("/_next/static/"));
   if (!estatico) return;
 
   event.respondWith(

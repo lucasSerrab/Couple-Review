@@ -1,14 +1,48 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
+import { DATA_DIR } from "@/lib/db";
 
-const INK = "#0E1419";
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-/** Ícone do app: o par de Lucas e Giovanna sobre o fundo escuro. `?maskable=1` deixa margem de segurança. */
+async function foto(slug: string): Promise<string | null> {
+  try {
+    const data = await fs.readFile(path.join(DATA_DIR, "avatars", `${slug}.jpg`));
+    // O ícone só aceita JPEG ou PNG de verdade; qualquer outra coisa é ignorada (volta a cor lisa).
+    const mime = data[0] === 0xff && data[1] === 0xd8 ? "image/jpeg" : data[0] === 0x89 && data[1] === 0x50 ? "image/png" : null;
+    return mime ? `data:${mime};base64,${data.toString("base64")}` : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Ícone do app: as fotos de perfil de Lucas e Giovanna lado a lado. `?maskable=1` deixa margem de segurança. */
 export async function GET(req: Request, { params }: { params: Promise<{ size: string }> }) {
   const { size: raw } = await params;
   const size = Number(raw);
   if (![180, 192, 512].includes(size)) return new Response("Not found", { status: 404 });
   const maskable = new URL(req.url).searchParams.has("maskable");
-  const arte = Math.round(size * (maskable ? 0.58 : 0.78));
+  const [lucas, giovanna] = await Promise.all([foto("lucas"), foto("giovanna")]);
+
+  const d = Math.round(size * (maskable ? 0.36 : 0.46)); // diâmetro de cada foto
+  const redondo = (src: string | null, cor: string, esquerda: number) => (
+    <div
+      style={{
+        display: "flex",
+        width: d,
+        height: d,
+        borderRadius: d,
+        marginLeft: esquerda,
+        border: `${Math.max(3, Math.round(size / 50))}px solid #0E1419`,
+        background: cor,
+        overflow: "hidden",
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {src ? <img src={src} width={d} height={d} style={{ width: d, height: d, objectFit: "cover" }} alt="" /> : null}
+    </div>
+  );
 
   return new ImageResponse(
     (
@@ -23,20 +57,10 @@ export async function GET(req: Request, { params }: { params: Promise<{ size: st
           borderRadius: maskable ? 0 : size * 0.22,
         }}
       >
-        <svg width={arte} height={arte} viewBox="0 0 24 24">
-          <path d="M12.6 18.6v-5.8a4.5 4.5 0 0 1 9 0v5.8c-.8.3-1.5-.1-1.8-.7v-5.3h-5.4v5.3c-.3.6-1 1-1.8.7Z" fill={INK} />
-          <circle cx="17.1" cy="12.6" r="4.1" fill="#F1C40F" />
-          <path d="M13 12.4a4.1 4.1 0 0 1 8.2 0c-.8.3-1.4-.1-1.7-.8-.6.6-1.4.9-2.4.9s-1.8-.3-2.4-.9c-.3.7-.9 1.1-1.7.8Z" fill={INK} />
-          <circle cx="15.7" cy="13" r=".62" fill={INK} />
-          <circle cx="18.5" cy="13" r=".62" fill={INK} />
-          <circle cx="7.3" cy="12.6" r="5.2" fill="#1F2D3A" />
-          <circle cx="7.3" cy="12.6" r="4.1" fill="#2ECC71" />
-          <path d="M3.2 12.4a4.1 4.1 0 0 1 8.2 0c-.8.3-1.4-.1-1.7-.8-.6.6-1.4.9-2.4.9s-1.8-.3-2.4-.9c-.3.7-.9 1.1-1.7.8Z" fill={INK} />
-          <circle cx="5.9" cy="13" r=".62" fill={INK} />
-          <circle cx="8.7" cy="13" r=".62" fill={INK} />
-        </svg>
+        {redondo(lucas, "#2ECC71", 0)}
+        {redondo(giovanna, "#F1C40F", -Math.round(d * 0.28))}
       </div>
     ),
-    { width: size, height: size },
+    { width: size, height: size, headers: { "cache-control": "no-cache" } },
   );
 }

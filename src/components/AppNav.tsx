@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CoupleIcon, CoupleLine, HomeIcon, LibraryIcon, MicIcon, PopcornIcon, SearchIcon, WhoIcon } from "./Icons";
+import { HomeIcon, LibraryIcon, MicIcon, PopcornIcon, SearchIcon } from "./Icons";
+import { WhoIcon } from "./WhoIcon";
 import type { Slug } from "@/lib/types";
 
 function ativo(pathname: string, href: string) {
@@ -12,7 +13,7 @@ function ativo(pathname: string, href: string) {
 const itemMobile = "flex min-h-14 min-w-14 flex-col items-center justify-center gap-1 text-[10.5px] font-bold";
 
 /** Barra inferior (celular). O botão amarelo do meio é sempre "avaliar". */
-export function BottomNav() {
+export function BottomNav({ slug }: { slug: Slug }) {
   const pathname = usePathname();
   const cor = (href: string) => (ativo(pathname, href) ? "text-gio" : "text-mute");
   return (
@@ -40,7 +41,7 @@ export function BottomNav() {
         Watchlist
       </Link>
       <Link href="/perfil" className={`${itemMobile} ${cor("/perfil")}`}>
-        <CoupleLine />
+        <WhoIcon quem={slug} size={26} />
         Perfil
       </Link>
     </nav>
@@ -50,14 +51,14 @@ export function BottomNav() {
 const itemSide = "flex min-h-[46px] items-center gap-[11px] rounded-[10px] px-3.5 text-[14.5px] font-bold";
 
 /** Menu lateral (computador). */
-export function Sidebar({ nome, slug, titulos, avatar }: { nome: string; slug: Slug; titulos: number; avatar: string | null }) {
+export function Sidebar({ nome, slug, titulos }: { nome: string; slug: Slug; titulos: number }) {
   const pathname = usePathname();
   const cls = (href: string) => `${itemSide} ${ativo(pathname, href) ? "bg-chip text-gio font-extrabold" : "text-mute hover:text-ink"}`;
   return (
     <aside className="sticky top-2.5 hidden h-[calc(100dvh-20px)] w-60 shrink-0 flex-col gap-1.5 rounded-2xl bg-bar px-4 py-6 md:flex">
       <Link href="/" className="mb-5 flex items-center gap-2.5 px-2">
-        <CoupleIcon size={34} ring="#121B23" />
-        <span className="font-display text-[25px] font-extrabold tracking-[-0.02em]">DataLug</span>
+        <WhoIcon quem="ambos" size={36} ring="#121B23" />
+        <span className="font-display text-[21px] font-extrabold leading-[1.05] tracking-[-0.02em]">Couple Review</span>
       </Link>
       <Link href="/" className={cls("/")}>
         <HomeIcon size={21} />
@@ -76,7 +77,7 @@ export function Sidebar({ nome, slug, titulos, avatar }: { nome: string; slug: S
         Buscar título
       </Link>
       <Link href="/perfil" className={cls("/perfil")}>
-        <CoupleLine size={21} />
+        <WhoIcon quem={slug} size={24} />
         Perfil
       </Link>
       <Link
@@ -87,12 +88,7 @@ export function Sidebar({ nome, slug, titulos, avatar }: { nome: string; slug: S
         Avaliar
       </Link>
       <div className="mt-auto flex items-center gap-2.5 px-2 pt-3.5">
-        {avatar ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatar} alt="" className="size-[34px] rounded-lg object-cover" />
-        ) : (
-          <WhoIcon quem={slug} size={34} />
-        )}
+        <WhoIcon quem={slug} size={38} />
         <div className="min-w-0">
           <div className="text-sm font-extrabold">{nome}</div>
           <div className="text-xs text-mute">{titulos} títulos</div>

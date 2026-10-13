@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 cd /d "%~dp0"
-title DataLug
+title Couple Review
 
 where node >nul 2>nul
 if errorlevel 1 (
@@ -20,7 +20,7 @@ if not exist .next\BUILD_ID (
 )
 
 echo.
-echo  DataLug no ar. Neste computador: http://localhost:3000
+echo  Couple Review no ar. Neste computador: http://localhost:3000
 echo  No celular (mesmo Wi-Fi), abra um destes enderecos com :3000 no final:
 powershell -NoProfile -Command "Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -like '192.168.*' -or $_.IPAddress -like '10.*' } | ForEach-Object { '    http://' + $_.IPAddress + ':3000' }"
 echo.

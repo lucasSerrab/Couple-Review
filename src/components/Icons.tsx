@@ -1,5 +1,4 @@
 import type { SVGProps } from "react";
-import type { Quem } from "@/lib/types";
 
 const INK = "#0E1419";
 const LUCAS = "#2ECC71";
@@ -87,12 +86,6 @@ export function CoupleLine({ size = 23, ring = "#121B23", ...p }: P & { ring?: s
       <path d="M3.4 11.6a4 4 0 0 1 7.8 0" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" />
     </Svg>
   );
-}
-
-export function WhoIcon({ quem, size = 24, ring }: { quem: Quem; size?: number; ring?: string }) {
-  if (quem === "lucas") return <LucasIcon size={size} />;
-  if (quem === "giovanna") return <GiovannaIcon size={size} />;
-  return <CoupleIcon size={size} ring={ring} />;
 }
 
 // ---------------------------------------------------------------------------

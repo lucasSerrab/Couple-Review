@@ -1,8 +1,8 @@
-# DataLug
+# Couple Review
 
 Diário de filmes, séries e animes para duas pessoas (Lucas e Giovanna): cada um guarda a própria nota e opinião, sozinho ou em casal, por texto ou por áudio. Sem conta, sem senha, sem custo e sem nada para configurar.
 
-Na entrada, uma tela "Quem está assistindo?", como na Netflix. Cada um escolhe o seu perfil e pode colocar uma foto.
+Na entrada, uma tela "Quem está assistindo?", como na Netflix. Cada um escolhe o seu perfil e coloca a própria foto (botão "Trocar foto"). A foto vira o seu ícone em todo o app: nas notas, na biblioteca, no menu e no ícone do app instalado, onde as duas fotos aparecem lado a lado como logo. Sem foto, aparece um desenho padrão.
 
 ## Como usar
 

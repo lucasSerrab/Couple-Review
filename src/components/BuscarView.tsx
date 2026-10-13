@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/client-api";
 import { TIPO_LABEL } from "@/lib/format";
 import type { Quem, SearchResult, Title } from "@/lib/types";
-import { CoupleIcon, GiovannaIcon, LucasIcon, SearchIcon } from "./Icons";
+import { SearchIcon } from "./Icons";
+import { WhoIcon } from "./WhoIcon";
 import { Poster } from "./Poster";
 
 const chave = (r: SearchResult) => `${r.media_type}-${r.tmdb_id}`;
@@ -123,9 +124,9 @@ export function BuscarView({ meuSlug }: { meuSlug: "lucas" | "giovanna" }) {
       <div className="flex flex-col gap-2">
         <span className="text-[13px] font-bold text-soft">Ao adicionar na watchlist, é para</span>
         <div className="flex gap-2">
-          {opcao("ambos", "Os dois", <CoupleIcon size={20} ring="#0E1419" />)}
-          {opcao("lucas", "Lucas", <LucasIcon size={20} />)}
-          {opcao("giovanna", "Giovanna", <GiovannaIcon size={20} />)}
+          {opcao("ambos", "Os dois", <WhoIcon quem="ambos" size={22} ring="#0E1419" />)}
+          {opcao("lucas", "Lucas", <WhoIcon quem="lucas" size={22} />)}
+          {opcao("giovanna", "Giovanna", <WhoIcon quem="giovanna" size={22} />)}
         </div>
       </div>
 

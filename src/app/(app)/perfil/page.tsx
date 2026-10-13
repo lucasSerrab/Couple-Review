@@ -31,7 +31,7 @@ export default async function PerfilPage() {
         }}
       >
         <div className="flex items-center gap-4">
-          <FotoPerfil slug={member.slug} avatar={member.avatar_url} />
+          <FotoPerfil slug={member.slug} grande />
           <div className="flex min-w-0 flex-col gap-1.5">
             <h1 className="font-display text-[34px] font-extrabold leading-none tracking-[-0.02em]">{member.nome}</h1>
             <p className="text-[13.5px] text-soft">Dentro do diário de vocês</p>

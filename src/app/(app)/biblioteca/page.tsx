@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GiovannaIcon, LucasIcon, SearchIcon, CoupleIcon, WhoIcon } from "@/components/Icons";
+import { SearchIcon } from "@/components/Icons";
+import { WhoIcon } from "@/components/WhoIcon";
 import { Poster } from "@/components/Poster";
 import { Chip, Vazio } from "@/components/ui";
 import { getSession } from "@/lib/server/auth";
@@ -79,9 +80,9 @@ export default async function BibliotecaPage({ searchParams }: { searchParams: P
         </div>
 
         <div className="flex items-center gap-2">
-          {filtroQuem("ambos", "Os dois", <CoupleIcon size={26} ring="#1C2A36" />, true)}
-          {filtroQuem("lucas", "Só o Lucas", <LucasIcon size={26} />)}
-          {filtroQuem("giovanna", "Só a Giovanna", <GiovannaIcon size={26} />)}
+          {filtroQuem("ambos", "Os dois", <WhoIcon quem="ambos" size={30} ring="#1C2A36" />, true)}
+          {filtroQuem("lucas", "Só o Lucas", <WhoIcon quem="lucas" size={32} />)}
+          {filtroQuem("giovanna", "Só a Giovanna", <WhoIcon quem="giovanna" size={32} />)}
         </div>
       </header>
 
@@ -104,7 +105,7 @@ export default async function BibliotecaPage({ searchParams }: { searchParams: P
                 <Link href={`/titulo/${title.id}`} className="flex flex-col gap-1.5">
                   <Poster titulo={title.titulo} poster_url={title.poster_url}>
                     <span className="absolute right-[5px] top-[5px] drop-shadow-[0_1px_2px_rgba(0,0,0,.6)]">
-                      <WhoIcon quem={q} size={24} ring="#1B2A38" />
+                      <WhoIcon quem={q} size={26} ring="#0E1419" />
                     </span>
                   </Poster>
                   <span className="text-[12.5px] font-bold leading-tight md:text-sm">{title.titulo}</span>

@@ -6,7 +6,8 @@ import { useState } from "react";
 import { api } from "@/lib/client-api";
 import type { Quem } from "@/lib/types";
 import { BottomSheet } from "./BottomSheet";
-import { CheckIcon, WhoIcon } from "./Icons";
+import { CheckIcon } from "./Icons";
+import { WhoIcon } from "./WhoIcon";
 import { Poster } from "./Poster";
 
 interface Props {

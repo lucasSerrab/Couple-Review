@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Greeting } from "@/components/Greeting";
-import { ChevronIcon, CoupleIcon, MicIcon, PopcornIcon, SearchIcon } from "@/components/Icons";
+import { ChevronIcon, MicIcon, PopcornIcon, SearchIcon } from "@/components/Icons";
+import { WhoIcon } from "@/components/WhoIcon";
 import { Poster } from "@/components/Poster";
 import { Notas, Vazio } from "@/components/ui";
 import { fmtNota } from "@/lib/format";
@@ -42,7 +43,7 @@ export default async function InicioPage() {
             aria-label="Perfil"
             className="flex size-12 shrink-0 items-center justify-center rounded-full bg-bg"
           >
-            <CoupleIcon size={34} ring="#0E1419" />
+            <WhoIcon quem={member.slug} size={44} />
           </Link>
         </div>
 
@@ -63,7 +64,7 @@ export default async function InicioPage() {
           </Link>
           <Link href="/biblioteca?quem=ambos" className={`${tile} bg-chip`}>
             <span className={`${tileIcon} bg-line`}>
-              <CoupleIcon size={30} ring="#2C3E50" />
+              <WhoIcon quem="ambos" size={32} ring="#2C3E50" />
             </span>
             Vistos
             <br />

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { fmtNota } from "@/lib/format";
 import type { Slug } from "@/lib/types";
-import { WhoIcon } from "./Icons";
+import { WhoIcon } from "./WhoIcon";
 
 /** Pílula de filtro (link). */
 export function Chip({ href, ativo, children, replace = true }: { href: string; ativo: boolean; children: React.ReactNode; replace?: boolean }) {

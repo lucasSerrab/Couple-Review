@@ -7,7 +7,8 @@ import { api } from "@/lib/client-api";
 import { fmtData, fmtNota, hojeISO, LOCAL_LABEL, QUEM_LABEL, TIPO_LABEL } from "@/lib/format";
 import { fmtTempo, MAX_SEGUNDOS, useRecorder } from "@/lib/use-recorder";
 import type { Local, Quem, Slug, Tipo } from "@/lib/types";
-import { CloseIcon, CoupleIcon, GiovannaIcon, LucasIcon, MicIcon, StopIcon } from "./Icons";
+import { CloseIcon, MicIcon, StopIcon } from "./Icons";
+import { WhoIcon } from "./WhoIcon";
 import { Poster } from "./Poster";
 import { NotaGrande } from "./ui";
 
@@ -156,9 +157,9 @@ export function AvaliarForm({ title, sessao, quemInicial, member }: Props) {
             <fieldset className="flex flex-col gap-[9px]">
               <legend className="mb-[9px] text-[13px] font-bold text-soft">Quem assistiu</legend>
               <div className="grid grid-cols-3 gap-[9px]">
-                {botaoQuem("lucas", <LucasIcon size={30} />)}
-                {botaoQuem("giovanna", <GiovannaIcon size={30} />)}
-                {botaoQuem("ambos", <CoupleIcon size={32} ring="#17222C" />)}
+                {botaoQuem("lucas", <WhoIcon quem="lucas" size={38} />)}
+                {botaoQuem("giovanna", <WhoIcon quem="giovanna" size={38} />)}
+                {botaoQuem("ambos", <WhoIcon quem="ambos" size={38} ring="#17222C" />)}
               </div>
             </fieldset>
 
