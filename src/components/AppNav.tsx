@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HomeIcon, LibraryIcon, MicIcon, PopcornIcon, SearchIcon } from "./Icons";
+import { HomeIcon, LibraryIcon, PlusIcon, PopcornIcon, SearchIcon } from "./Icons";
 import { WhoIcon } from "./WhoIcon";
 import type { Slug } from "@/lib/types";
 
@@ -31,10 +31,10 @@ export function BottomNav({ slug }: { slug: Slug }) {
       </Link>
       <Link
         href="/avaliar"
-        aria-label="Gravar avaliação"
+        aria-label="Nova avaliação"
         className="flex size-[58px] items-center justify-center rounded-full bg-gio text-bg"
       >
-        <MicIcon size={27} />
+        <PlusIcon size={30} strokeWidth={2.6} />
       </Link>
       <Link href="/watchlist" className={`${itemMobile} ${cor("/watchlist")}`}>
         <PopcornIcon />
@@ -84,7 +84,7 @@ export function Sidebar({ nome, slug, titulos }: { nome: string; slug: Slug; tit
         href="/avaliar"
         className="mt-6 flex min-h-[52px] items-center justify-center gap-[9px] rounded-full bg-gio text-[15px] font-extrabold text-bg"
       >
-        <MicIcon size={20} />
+        <PlusIcon size={20} strokeWidth={2.6} />
         Avaliar
       </Link>
       <div className="mt-auto flex items-center gap-2.5 px-2 pt-3.5">

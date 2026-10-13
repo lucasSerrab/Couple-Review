@@ -124,8 +124,8 @@ export const CloseIcon = ({ size = 22, ...p }: P) => (
   </Svg>
 );
 
-export const PlusIcon = ({ size = 22, ...p }: P) => (
-  <Svg size={size} {...line} strokeWidth={2.3} {...p}>
+export const PlusIcon = ({ size = 22, strokeWidth = 2.3, ...p }: P) => (
+  <Svg size={size} {...line} strokeWidth={strokeWidth} {...p}>
     <path d="M12 5.2v13.6M5.2 12h13.6" />
   </Svg>
 );

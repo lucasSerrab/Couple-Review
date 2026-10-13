@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Greeting } from "@/components/Greeting";
-import { ChevronIcon, MicIcon, PopcornIcon, SearchIcon } from "@/components/Icons";
+import { ChevronIcon, PlusIcon, PopcornIcon, SearchIcon } from "@/components/Icons";
 import { WhoIcon } from "@/components/WhoIcon";
 import { Poster } from "@/components/Poster";
 import { Notas, Vazio } from "@/components/ui";
@@ -50,7 +50,7 @@ export default async function InicioPage() {
         <div className="grid grid-cols-2 gap-2.5">
           <Link href="/avaliar" className={`${tile} bg-gio text-bg`}>
             <span className={`${tileIcon} bg-bg/15`}>
-              <MicIcon />
+              <PlusIcon size={26} strokeWidth={2.6} />
             </span>
             Avaliar
             <br />

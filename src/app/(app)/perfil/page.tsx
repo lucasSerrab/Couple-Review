@@ -55,6 +55,19 @@ export default async function PerfilPage() {
           </div>
         </div>
 
+        <div className="flex flex-col gap-1.5 rounded-2xl bg-card p-4">
+          <a
+            href="/api/backup"
+            download
+            className="flex min-h-[48px] items-center justify-center rounded-[24px] bg-gio text-[15px] font-extrabold text-bg"
+          >
+            Baixar backup dos dados
+          </a>
+          <p className="text-[12.5px] leading-snug text-mute">
+            Guarda avaliações, áudios e fotos num arquivo. Baixe de vez em quando e deixe no seu computador ou no Drive: se o servidor sair do ar, nada se perde.
+          </p>
+        </div>
+
         <form action={trocarDePerfil}>
           <button
             type="submit"
