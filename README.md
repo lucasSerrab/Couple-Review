@@ -14,6 +14,10 @@ Na entrada, uma tela "Quem está assistindo?", como na Netflix. Cada um escolhe 
 
 Os dados ficam na pasta `data/` (banco, áudios e fotos). Ela não vai para o git; copiem essa pasta para fazer backup.
 
+## Online (Fly.io)
+
+O app está publicado em **https://couple-review.fly.dev**, com os dados num disco permanente. Para atualizar depois de mudar o código: `flyctl deploy --remote-only` (ou o deploy automático do Fly pelo GitHub). A chave do Gemini fica como segredo do Fly (`flyctl secrets set GEMINI_API_KEY=...`), nunca no código. A máquina desliga sozinha quando ninguém usa e liga no primeiro acesso (demora alguns segundos).
+
 ## Usar no celular com microfone (de qualquer rede)
 
 Dê dois cliques em **`iniciar-celular.bat`**. Ele liga o app e um túnel gratuito da Cloudflare, e mostra um endereço `https://....trycloudflare.com`. Abra esse endereço no celular: funciona fora de casa e libera o microfone (HTTPS). O endereço muda a cada vez; o computador precisa ficar ligado com as duas janelas abertas.
