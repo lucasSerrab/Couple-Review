@@ -14,6 +14,12 @@ Na entrada, uma tela "Quem está assistindo?", como na Netflix. Cada um escolhe 
 
 Os dados ficam na pasta `data/` (banco, áudios e fotos). Ela não vai para o git; copiem essa pasta para fazer backup.
 
+## Usar no celular com microfone (de qualquer rede)
+
+Dê dois cliques em **`iniciar-celular.bat`**. Ele liga o app e um túnel gratuito da Cloudflare, e mostra um endereço `https://....trycloudflare.com`. Abra esse endereço no celular: funciona fora de casa e libera o microfone (HTTPS). O endereço muda a cada vez; o computador precisa ficar ligado com as duas janelas abertas.
+
+Atenção: quem tiver esse endereço consegue abrir o app (não há senha), então não o divulgue. Ele é aleatório e some quando a janela fecha.
+
 ## O que tem
 
 Perfis com foto, busca de títulos com pôster, biblioteca em grade, detalhe do título com as duas notas lado a lado, avaliação por texto e por áudio, data e lugar da sessão, watchlist por tipo e PWA instalável.
