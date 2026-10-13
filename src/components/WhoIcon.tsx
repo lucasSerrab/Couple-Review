@@ -16,6 +16,10 @@ function Foto({ slug, size, ring }: { slug: Slug; size: number; ring?: string })
       width={size}
       height={size}
       onError={() => setFalhou(true)}
+      // O erro de carregamento pode acontecer antes de a página hidratar; nesse caso o onError já passou.
+      ref={(el) => {
+        if (el && el.complete && el.naturalWidth === 0) setFalhou(true);
+      }}
       className="shrink-0 rounded-full bg-card object-cover"
       style={{ width: size, height: size, boxShadow: ring ? `0 0 0 ${Math.max(1.5, size / 14)}px ${ring}` : undefined }}
     />

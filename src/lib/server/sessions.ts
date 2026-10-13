@@ -53,3 +53,27 @@ export function buscarSessao(id: string): Sessao {
 export function participa(quem: Quem, member: Member): boolean {
   return quem === "ambos" || quem === member.slug;
 }
+
+export const sessionPatch = z.object({
+  assistido_em: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data inválida.").optional(),
+  local: z.enum(["cinema", "casa", "viagem", "outro"]).optional(),
+  temporada: z.number().int().min(1).max(100).nullable().optional(),
+  observacao: z.string().max(500).nullable().optional(),
+});
+
+/** Ajusta data, lugar e temporada. Só quem participou da sessão pode mexer (quem assistiu não muda, para não bagunçar as avaliações). */
+export function atualizarSessao(member: Member, id: string, patch: z.infer<typeof sessionPatch>): Sessao {
+  const atual = buscarSessao(id);
+  if (!participa(atual.quem, member) && atual.criado_por !== member.id) {
+    throw new ApiError(403, "Essa sessão não é sua.");
+  }
+  run(
+    "update watch_sessions set assistido_em = ?, local = ?, temporada = ?, observacao = ? where id = ?",
+    patch.assistido_em ?? atual.assistido_em,
+    patch.local ?? atual.local,
+    patch.temporada === undefined ? atual.temporada : patch.temporada,
+    patch.observacao === undefined ? atual.observacao : patch.observacao,
+    id,
+  );
+  return buscarSessao(id);
+}

@@ -163,8 +163,8 @@ export function AvaliarForm({ title, sessao, quemInicial, member }: Props) {
               </div>
             </fieldset>
 
-            <div className="flex items-end gap-[9px]">
-              <div className="flex min-w-0 flex-1 flex-col gap-[9px]">
+            <div className="flex flex-col gap-4">
+              <div className="flex min-w-0 flex-col gap-[9px]">
                 <label htmlFor="data" className="text-[13px] font-bold text-soft">
                   Quando
                 </label>
@@ -174,10 +174,10 @@ export function AvaliarForm({ title, sessao, quemInicial, member }: Props) {
                   value={data}
                   max={hojeISO()}
                   onChange={(e) => setData(e.target.value)}
-                  className="campo h-[46px] text-[14.5px]"
+                  className="campo h-[46px] max-w-full min-w-0 text-[14.5px]"
                 />
               </div>
-              <div className="flex min-w-0 flex-[1.25] flex-col gap-[9px]">
+              <div className="flex min-w-0 flex-col gap-[9px]">
                 <span className="text-[13px] font-bold text-soft">Onde</span>
                 <div className="flex gap-[5px]" role="group" aria-label="Onde">
                   {LOCAIS.slice(0, 3).map((l) => (

@@ -155,6 +155,12 @@ export const StopIcon = ({ size = 22, ...p }: P) => (
   </Svg>
 );
 
+export const PencilIcon = ({ size = 20, ...p }: P) => (
+  <Svg size={size} {...line} strokeWidth={2.1} {...p}>
+    <path d="M15.6 4.4 19.6 8.4 8.6 19.4l-4.8.8.8-4.8Z" />
+  </Svg>
+);
+
 export const SparkIcon = ({ size = 22, ...p }: P) => (
   <Svg size={size} {...line} strokeWidth={2.1} {...p}>
     <path d="m12 3.4 2.3 5 5.4.6-4 3.7 1.1 5.3L12 15.4l-4.8 2.6 1.1-5.3-4-3.7 5.4-.6Z" />

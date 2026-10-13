@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { AudioButton } from "@/components/AudioButton";
-import { DiffIcon } from "@/components/Icons";
+import { DiffIcon, PencilIcon } from "@/components/Icons";
 import { WhoIcon } from "@/components/WhoIcon";
 import { Poster } from "@/components/Poster";
 import { NotaGrande, VoltarLink } from "@/components/ui";
@@ -112,7 +112,7 @@ function Sessao({ sessao, member, multiplas }: { sessao: WatchSession; member: M
 
       {participantes.map((slug) => {
         const review = sessao.reviews.find((r) => r.slug === slug && !r.rascunho);
-        if (review) return <CartaoAvaliacao key={slug} review={review} />;
+        if (review) return <CartaoAvaliacao key={slug} review={review} editavel={slug === member.slug} />;
 
         const nome = QUEM_LABEL[slug];
         const sou = slug === member.slug;
@@ -144,7 +144,7 @@ function Sessao({ sessao, member, multiplas }: { sessao: WatchSession; member: M
   );
 }
 
-function CartaoAvaliacao({ review }: { review: Review }) {
+function CartaoAvaliacao({ review, editavel }: { review: Review; editavel: boolean }) {
   const texto = review.texto ?? review.resumo_ia;
   return (
     <article className="flex flex-col gap-[11px] rounded-2xl bg-card p-4">
@@ -152,6 +152,15 @@ function CartaoAvaliacao({ review }: { review: Review }) {
         <WhoIcon quem={review.slug} size={34} ring="#17222C" />
         <span className="flex-1 text-base font-extrabold">{QUEM_LABEL[review.slug]}</span>
         <NotaGrande slug={review.slug} nota={review.nota} />
+        {editavel && (
+          <Link
+            href={`/editar/${review.id}`}
+            aria-label="Editar a avaliação"
+            className="-mr-1 flex size-10 shrink-0 items-center justify-center rounded-full bg-chip text-soft"
+          >
+            <PencilIcon />
+          </Link>
+        )}
       </header>
       {texto && <p className="whitespace-pre-line text-[14.5px] leading-[1.45] text-[#D4DFE8]">{texto}</p>}
       {review.tem_audio && <AudioButton reviewId={review.id} />}
