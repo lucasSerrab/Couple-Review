@@ -1,0 +1,10 @@
+node_modules
+.next
+data
+tools
+.git
+.env
+.env.local
+DataLug.html
+*.md
+iniciar*.bat

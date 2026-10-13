@@ -1,0 +1,24 @@
+# Couple Review no Fly.io: uma máquina pequena com um disco permanente para o banco, os áudios e as fotos.
+app = "couple-review"
+primary_region = "gru" # São Paulo
+
+[build]
+
+[env]
+  DATALUG_DATA = "/data"
+
+[[mounts]]
+  source = "data"
+  destination = "/data"
+  initial_size = "1gb"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"   # desliga quando ninguém usa (economiza) e liga sozinha no primeiro acesso
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
