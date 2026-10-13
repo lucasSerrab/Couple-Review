@@ -107,22 +107,34 @@ async function resumirOpenAI(transcricao: string, titulo: string): Promise<strin
   return j.choices?.[0]?.message?.content ?? "";
 }
 
+// Modelos em ordem de preferência: os do Google mudam e saem do ar, então há reservas.
+const MODELOS_GEMINI = ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-flash-latest"];
+
 async function gemini(parts: unknown[], json: boolean): Promise<string> {
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-    method: "POST",
-    headers: { "x-goog-api-key": process.env.GEMINI_API_KEY!, "content-type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts }],
-      generationConfig: json ? { responseMimeType: "application/json", temperature: 0.3 } : { temperature: 0 },
-    }),
-  });
-  if (!res.ok) {
-    console.error("[gemini]", res.status, await res.text().catch(() => ""));
-    throw new ApiError(502, "A IA não respondeu. Tente de novo.");
+  const modelos = process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : MODELOS_GEMINI;
+  let ultimo = "";
+  for (const model of modelos) {
+    for (let tentativa = 0; tentativa < 2; tentativa++) {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "x-goog-api-key": process.env.GEMINI_API_KEY!, "content-type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts }],
+          generationConfig: json ? { responseMimeType: "application/json", temperature: 0.3 } : { temperature: 0 },
+        }),
+      });
+      if (res.ok) {
+        const j = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+        return (j.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? "").join("");
+      }
+      ultimo = `${model} ${res.status} ${await res.text().catch(() => "")}`;
+      // 503/429 são picos de demanda: espera um pouco e tenta de novo; 404 e outros: passa para o próximo modelo.
+      if (res.status === 503 || res.status === 429) await new Promise((r) => setTimeout(r, 1500));
+      else break;
+    }
   }
-  const j = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
-  return (j.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? "").join("");
+  console.error("[gemini]", ultimo);
+  throw new ApiError(502, "A IA não respondeu. Tente de novo.");
 }
 
 async function transcreverGemini(audio: ArrayBuffer, mime: string): Promise<string> {
