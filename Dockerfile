@@ -2,7 +2,7 @@
 FROM node:24-bookworm-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
+RUN npm install --no-audit --no-fund
 COPY . .
 RUN npm run build
 
@@ -13,7 +13,7 @@ ENV NODE_ENV=production \
     DATALUG_DATA=/data \
     PORT=3000
 COPY --from=build /app/package.json /app/package-lock.json ./
-RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
+RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 COPY --from=build /app/next.config.mjs ./next.config.mjs
